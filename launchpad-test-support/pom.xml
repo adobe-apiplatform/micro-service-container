@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ ADOBE CONFIDENTIAL
+  ~ ___________________
+  ~
+  ~  Copyright 2014 Adobe Systems Incorporated
+  ~  All Rights Reserved.
+  ~
+  ~ NOTICE:  All information contained herein is, and remains
+  ~ the property of Adobe Systems Incorporated and its suppliers,
+  ~ if any.  The intellectual and technical concepts contained
+  ~ herein are proprietary to Adobe Systems Incorporated and its
+  ~ suppliers and are protected by all applicable intellectual property laws,
+  ~ including trade secret and or copyright laws.
+  ~ Dissemination of this information or reproduction of this material
+  ~ is strictly forbidden unless prior written permission is obtained
+  ~ from Adobe Systems Incorporated.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.adobe.api.platform.ms</groupId>
+        <artifactId>micro-service-build</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <artifactId>launchpad-test-support</artifactId>
+    <packaging>jar</packaging>
+
+    <name>API Platform Micro Service Launchpad Test Support</name>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.adobe.api.platform.ms</groupId>
+            <artifactId>launchpad</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+        </dependency>
+
+    </dependencies>
+
+</project>
+
