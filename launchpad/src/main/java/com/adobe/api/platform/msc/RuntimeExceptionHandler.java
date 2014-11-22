@@ -16,9 +16,9 @@
  * from Adobe Systems Incorporated.
  ******************************************************************************/
 
-package com.adobe.api.platform.ms;
+package com.adobe.api.platform.msc;
 
-import com.adobe.api.platform.ms.support.AbstractExceptionHandler;
+import com.adobe.api.platform.msc.support.AbstractExceptionHandler;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;

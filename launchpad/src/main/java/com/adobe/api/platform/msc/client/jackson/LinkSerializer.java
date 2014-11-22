@@ -16,40 +16,32 @@
  * from Adobe Systems Incorporated.
  ******************************************************************************/
 
-package com.adobe.api.platform.ms.test;
+package com.adobe.api.platform.msc.client.jackson;
 
-import org.junit.Test;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
 
-import javax.ws.rs.core.Response;
-import java.util.Map;
-
-import static org.junit.Assert.assertTrue;
+import javax.ws.rs.core.Link;
+import java.io.IOException;
 
 /**
- * @author Cristian Constantin
- * @since 11/20/14
+ * Custom Jackson serializer for JAX-RS {@link javax.ws.rs.core.Link} objects.
+ * <p/>
+ * User: ccristia
+ * Date: 12/17/13
  */
-public class ContainerIntegrationTest extends BaseTest {
+public class LinkSerializer extends JsonSerializer<Link> {
 
-    @Test
-    public void containerRest() {
+    @Override
+    public void serialize(Link link, JsonGenerator jgen, SerializerProvider provider) throws IOException {
 
-        Map response = getRestClient()
-                .path("test")
-                .get(Map.class);
+        jgen.writeStartObject();
 
-        assertTrue((Boolean) response.get("valid"));
-    }
+        jgen.writeStringField("href", link.getUri().toASCIIString());
+        jgen.writeStringField("rel", link.getRel());
+        jgen.writeStringField("title", link.getTitle());
 
-
-    @Test
-    public void testErrorHandling() {
-
-        Response response = getRestClient()
-                .path("test")
-                .path("v3")
-                .get(Response.class);
-
-        System.out.println(response.readEntity(String.class));
+        jgen.writeEndObject();
     }
 }

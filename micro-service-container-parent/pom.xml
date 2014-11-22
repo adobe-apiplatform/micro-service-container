@@ -26,9 +26,10 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.1.9.RELEASE</version>
+        <relativePath/>
     </parent>
 
-    <groupId>com.adobe.api.platform.ms</groupId>
+    <groupId>com.adobe.api.platform.msc</groupId>
     <artifactId>micro-service-container-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -55,7 +56,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.adobe.api.platform.ms.SpringBootApplication</mainClass>
+                    <mainClass>com.adobe.api.platform.msc.SpringBootApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

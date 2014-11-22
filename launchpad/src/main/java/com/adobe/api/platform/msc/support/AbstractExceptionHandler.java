@@ -16,38 +16,38 @@
  * from Adobe Systems Incorporated.
  ******************************************************************************/
 
-package com.adobe.api.platform.ms.test.support;
+package com.adobe.api.platform.msc.support;
 
-import com.adobe.api.platform.ms.support.JaxRsComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.Provider;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Cristian Constantin
- * @since 11/20/14
+ * Abstract base class that provides basic exception handling to subclasses.
+ * <p/>
+ * User: ccristia
+ * Date: 5/30/13
  */
-@Path("/test")
-@JaxRsComponent
 @Produces(MediaType.APPLICATION_JSON)
-public class Resource {
+@Provider
+public abstract class AbstractExceptionHandler {
 
-    @GET
-    public Map<String, Object> get() {
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("valid", true);
-        return map;
-    }
+    protected Response toResponse(String message, Response.Status status) {
 
-    @GET
-    @Path("/error")
-    public String getV3() {
+        Map<String, String> retVal = new HashMap<>();
 
-        throw new RuntimeException();
+        retVal.put("error", message);
+        retVal.put("uid", MDC.get("requestId"));
+
+        return Response.status(status).entity(retVal).build();
     }
 }

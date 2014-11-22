@@ -16,7 +16,7 @@
  * from Adobe Systems Incorporated.
  ******************************************************************************/
 
-package com.adobe.api.platform.ms.client.jackson;
+package com.adobe.api.platform.msc.client.jackson;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.ObjectCodec;

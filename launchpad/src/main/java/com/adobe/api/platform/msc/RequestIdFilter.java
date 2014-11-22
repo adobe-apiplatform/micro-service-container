@@ -16,7 +16,7 @@
  * from Adobe Systems Incorporated.
  ******************************************************************************/
 
-package com.adobe.api.platform.ms;
+package com.adobe.api.platform.msc;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.MDC;

@@ -16,9 +16,9 @@
  * from Adobe Systems Incorporated.
  ******************************************************************************/
 
-package com.adobe.api.platform.ms.client;
+package com.adobe.api.platform.msc.client;
 
-import com.adobe.api.platform.ms.client.util.ParameterizedListType;
+import com.adobe.api.platform.msc.client.util.ParameterizedListType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Wrapper of JAX-rs client which adds logging and generic error handling.
+ * Wrapper of JAX-RS client which adds logging and generic error handling.
  * <p/>
  * This class is not thread safe and it is not meant to be reused across requests.
  * <p/>
@@ -47,12 +47,12 @@ public class RestClient {
     private WebTarget webResource;
     private MediaType[] acceptedMediaTypes = new MediaType[0];
     private MediaType contentType = MediaType.APPLICATION_JSON_TYPE;
-    private Map<String, Object> headers = new HashMap<String, Object>();
+    private Map<String, Object> headers = new HashMap<>();
 
     /**
-     * Constructs a new REST client instance on top of a Jersey {@link javax.ws.rs.client.WebTarget} object.
+     * Constructs a new REST client instance on top of a JAX-RS {@link javax.ws.rs.client.WebTarget} object.
      *
-     * @param webResource the wrapped Jersey {@link javax.ws.rs.client.WebTarget} object
+     * @param webResource the wrapped {@link javax.ws.rs.client.WebTarget} object
      */
     public RestClient(WebTarget webResource) {
         this.webResource = webResource;
@@ -123,7 +123,7 @@ public class RestClient {
      */
     public <T> List<T> getList(final Class<T> responseClass) {
 
-        return get(new GenericType<List<T>>(new ParameterizedListType (responseClass)));
+        return get(new GenericType<>(new ParameterizedListType (responseClass)));
     }
 
     /**

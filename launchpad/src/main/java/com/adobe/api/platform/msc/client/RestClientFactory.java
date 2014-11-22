@@ -16,7 +16,7 @@
  * from Adobe Systems Incorporated.
  ******************************************************************************/
 
-package com.adobe.api.platform.ms.client;
+package com.adobe.api.platform.msc.client;
 
 import javax.net.ssl.*;
 import javax.ws.rs.client.Client;

@@ -16,17 +16,16 @@
  * from Adobe Systems Incorporated.
  ******************************************************************************/
 
-package com.adobe.api.platform.ms.test;
+package com.adobe.api.platform.msc.test;
 
-import com.adobe.api.platform.ms.SpringBootApplication;
-import com.adobe.api.platform.ms.client.RestClient;
-import com.adobe.api.platform.ms.client.RestClientFactory;
+import com.adobe.api.platform.msc.SpringBootApplication;
+import com.adobe.api.platform.msc.client.RestClient;
+import com.adobe.api.platform.msc.client.RestClientFactory;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -45,13 +44,8 @@ public class BaseTest {
     public static void initSpringBootContainer() throws Exception {
         Future<ConfigurableApplicationContext> future = Executors
                 .newSingleThreadExecutor().submit(
-                        new Callable<ConfigurableApplicationContext>() {
-                            @Override
-                            public ConfigurableApplicationContext call() throws Exception {
-                                return SpringApplication
-                                        .run(SpringBootApplication.class);
-                            }
-                        });
+                        () -> SpringApplication
+                                .run(SpringBootApplication.class));
         context = future.get(60, TimeUnit.SECONDS);
     }
 
