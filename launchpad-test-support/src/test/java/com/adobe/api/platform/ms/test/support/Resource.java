@@ -16,41 +16,38 @@
  * from Adobe Systems Incorporated.
  ******************************************************************************/
 
-package com.adobe.api.platform.ms;
+package com.adobe.api.platform.ms.test.support;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import com.adobe.api.platform.ms.support.JaxRsComponent;
 
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Cristian Constantin
  * @since 11/20/14
  */
-@Component
-@ApplicationPath("/api")
-public class JaxRsApp extends Application {
+@Path("/test")
+@JaxRsComponent
+@Produces(MediaType.APPLICATION_JSON)
+public class Resource {
 
-    @Autowired(required = false)
-    @Qualifier("jax-rs")
-    private Object[] beans;
+    @GET
+    public Map<String, Object> get() {
 
-    @Override
-    public Set<Class<?>> getClasses() {
-        return new HashSet<>(Arrays.asList(
-                RuntimeExceptionHandler.class,
-                RequestIdFilter.class
-        ));
+        Map<String, Object> map = new HashMap<>();
+        map.put("valid", true);
+        return map;
     }
 
-    @Override
-    public Set<Object> getSingletons() {
+    @GET
+    @Path("/error")
+    public String getV3() {
 
-        return new HashSet<>(Arrays.asList(beans));
+        throw new RuntimeException();
     }
 }

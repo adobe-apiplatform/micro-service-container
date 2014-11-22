@@ -16,41 +16,32 @@
  * from Adobe Systems Incorporated.
  ******************************************************************************/
 
-package com.adobe.api.platform.ms;
+package com.adobe.api.platform.ms.client.jackson;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
 
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import javax.ws.rs.core.Link;
+import java.io.IOException;
 
 /**
- * @author Cristian Constantin
- * @since 11/20/14
+ * Custom Jackson serializer for JAX-RS {@link javax.ws.rs.core.Link} objects.
+ * <p/>
+ * User: ccristia
+ * Date: 12/17/13
  */
-@Component
-@ApplicationPath("/api")
-public class JaxRsApp extends Application {
-
-    @Autowired(required = false)
-    @Qualifier("jax-rs")
-    private Object[] beans;
+public class LinkSerializer extends JsonSerializer<Link> {
 
     @Override
-    public Set<Class<?>> getClasses() {
-        return new HashSet<>(Arrays.asList(
-                RuntimeExceptionHandler.class,
-                RequestIdFilter.class
-        ));
-    }
+    public void serialize(Link link, JsonGenerator jgen, SerializerProvider provider) throws IOException {
 
-    @Override
-    public Set<Object> getSingletons() {
+        jgen.writeStartObject();
 
-        return new HashSet<>(Arrays.asList(beans));
+        jgen.writeStringField("href", link.getUri().toASCIIString());
+        jgen.writeStringField("rel", link.getRel());
+        jgen.writeStringField("title", link.getTitle());
+
+        jgen.writeEndObject();
     }
 }

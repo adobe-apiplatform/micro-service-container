@@ -18,22 +18,32 @@
 
 package com.adobe.api.platform.ms;
 
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import com.adobe.api.platform.ms.support.AbstractExceptionHandler;
 
-import java.lang.annotation.*;import java.lang.annotation.Documented;import java.lang.annotation.ElementType;import java.lang.annotation.Retention;import java.lang.annotation.RetentionPolicy;import java.lang.annotation.Target;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.ExceptionMapper;
 
 /**
+ * Intercepts uncaught application errors, logs them and provides some
+ * brief information to the client.
+ * <p/>
  * User: ccristia
- * Date: 08/06/14
- * Time: 22:52
+ * Date: 5/30/13
  */
+public class RuntimeExceptionHandler extends AbstractExceptionHandler implements ExceptionMapper<Exception> {
+    @Override
+    public Response toResponse(Exception exception) {
 
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Component
-@Qualifier("jax-rs")
-public @interface JaxRsComponent {
+        if (exception instanceof WebApplicationException) {
+            return ((WebApplicationException) exception).getResponse();
+        }
+        else {
 
+            logger.error("Unexpected error", exception);
+
+            return toResponse("Unexpected server error. Please try again later.",
+                    Response.Status.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

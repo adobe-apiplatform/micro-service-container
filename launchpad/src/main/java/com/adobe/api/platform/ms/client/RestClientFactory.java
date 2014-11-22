@@ -16,7 +16,7 @@
  * from Adobe Systems Incorporated.
  ******************************************************************************/
 
-package com.adobe.api.platform.ms.test.client;
+package com.adobe.api.platform.ms.client;
 
 import javax.net.ssl.*;
 import javax.ws.rs.client.Client;
@@ -26,7 +26,7 @@ import javax.ws.rs.core.UriBuilder;
 import java.security.cert.X509Certificate;
 
 /**
- * Factory class that initializes Jersey Client objects.
+ * Factory class that initializes JAX-RS Client objects.
  * Adds Jackson JSON support and takes care of the SSL configuration.
  * <p/>
  * User: ccristia

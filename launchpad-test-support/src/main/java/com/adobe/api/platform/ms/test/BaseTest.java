@@ -19,8 +19,8 @@
 package com.adobe.api.platform.ms.test;
 
 import com.adobe.api.platform.ms.SpringBootApplication;
-import com.adobe.api.platform.ms.test.client.RestClient;
-import com.adobe.api.platform.ms.test.client.RestClientFactory;
+import com.adobe.api.platform.ms.client.RestClient;
+import com.adobe.api.platform.ms.client.RestClientFactory;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.springframework.boot.SpringApplication;

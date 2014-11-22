@@ -16,7 +16,7 @@
  * from Adobe Systems Incorporated.
  ******************************************************************************/
 
-package com.adobe.api.platform.ms.test.client;
+package com.adobe.api.platform.ms.client;
 
 import javax.ws.rs.core.Response;
 

@@ -16,9 +16,9 @@
  * from Adobe Systems Incorporated.
  ******************************************************************************/
 
-package com.adobe.api.platform.ms.test.client;
+package com.adobe.api.platform.ms.client;
 
-import com.adobe.api.platform.ms.test.client.util.ParameterizedListType;
+import com.adobe.api.platform.ms.client.util.ParameterizedListType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Wrapper of Jersey Rest client which adds logging and generic error handling.
+ * Wrapper of JAX-rs client which adds logging and generic error handling.
  * <p/>
  * This class is not thread safe and it is not meant to be reused across requests.
  * <p/>

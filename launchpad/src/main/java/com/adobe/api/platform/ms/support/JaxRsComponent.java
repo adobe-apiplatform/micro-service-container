@@ -16,41 +16,24 @@
  * from Adobe Systems Incorporated.
  ******************************************************************************/
 
-package com.adobe.api.platform.ms;
+package com.adobe.api.platform.ms.support;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.lang.annotation.*;import java.lang.annotation.Documented;import java.lang.annotation.ElementType;import java.lang.annotation.Retention;import java.lang.annotation.RetentionPolicy;import java.lang.annotation.Target;
 
 /**
- * @author Cristian Constantin
- * @since 11/20/14
+ * User: ccristia
+ * Date: 08/06/14
+ * Time: 22:52
  */
+
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
 @Component
-@ApplicationPath("/api")
-public class JaxRsApp extends Application {
+@Qualifier("jax-rs")
+public @interface JaxRsComponent {
 
-    @Autowired(required = false)
-    @Qualifier("jax-rs")
-    private Object[] beans;
-
-    @Override
-    public Set<Class<?>> getClasses() {
-        return new HashSet<>(Arrays.asList(
-                RuntimeExceptionHandler.class,
-                RequestIdFilter.class
-        ));
-    }
-
-    @Override
-    public Set<Object> getSingletons() {
-
-        return new HashSet<>(Arrays.asList(beans));
-    }
 }
