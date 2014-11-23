@@ -23,6 +23,7 @@ import org.junit.Test;
 import javax.ws.rs.core.Response;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -41,15 +42,29 @@ public class ContainerIntegrationTest extends BaseTest {
         assertTrue((Boolean) response.get("valid"));
     }
 
-
     @Test
     public void testErrorHandling() {
 
         Response response = getRestClient()
                 .path("test")
-                .path("v3")
+                .path("error")
                 .get(Response.class);
 
-        System.out.println(response.readEntity(String.class));
+        assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
+        Map entity = response.readEntity(Map.class);
+        assertTrue(entity.containsKey("uid"));
+        assertTrue(entity.containsKey("error"));
+
+
+        response = getRestClient()
+                .path("test")
+                .path("error")
+                .header("X-Request-Id", "1234")
+                .get(Response.class);
+
+        assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
+        entity = response.readEntity(Map.class);
+        assertTrue(entity.containsKey("uid"));
+        assertEquals("1234", entity.get("uid"));
     }
 }

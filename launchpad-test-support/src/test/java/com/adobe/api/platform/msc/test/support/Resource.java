@@ -46,7 +46,7 @@ public class Resource {
 
     @GET
     @Path("/error")
-    public String getV3() {
+    public String endpointError() {
 
         throw new RuntimeException();
     }
