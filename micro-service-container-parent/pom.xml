@@ -36,6 +36,17 @@
 
     <name>API Platform Micro Service Container</name>
 
+    <distributionManagement>
+        <repository>
+            <id>api-platform-releases</id>
+            <url>http://api-ci-stg.corp.adobe.com/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>api-platform-snapshots</id>
+            <url>http://api-ci-stg.corp.adobe.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>com.adobe.api.platform.msc</groupId>
