@@ -33,7 +33,7 @@
     <version>1.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>API Platform Micro Service Container</name>
+    <name>API Platform Micro Service Container Parent</name>
 
     <distributionManagement>
         <repository>
