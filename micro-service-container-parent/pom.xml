@@ -38,12 +38,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.adobe.api.platform.ms</groupId>
+            <groupId>com.adobe.api.platform.msc</groupId>
             <artifactId>launchpad</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.adobe.api.platform.ms</groupId>
+            <groupId>com.adobe.api.platform.msc</groupId>
             <artifactId>launchpad-test-support</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
