@@ -32,7 +32,14 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.boot.version>1.1.9.RELEASE</spring.boot.version>
+        <git.repo>git@git.corp.adobe.com:ccristia/micro-service-container.git</git.repo>
     </properties>
+
+    <scm>
+        <connection>scm:git:${git.repo}</connection>
+        <developerConnection>scm:git:${git.repo}</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 
     <modules>
         <module>micro-service-container-parent</module>
@@ -50,6 +57,17 @@
             <url>http://api-ci-stg.corp.adobe.com/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>api-platform-releases</id>
+            <url>http://api-ci-stg.corp.adobe.com/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>api-platform-snapshots</id>
+            <url>http://api-ci-stg.corp.adobe.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <build>
         <plugins>
@@ -83,5 +101,30 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>coverage</id>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>0.6.4.201312101107</version>
+                        <executions>
+                            <execution>
+                                <id>pre-test</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>
 
