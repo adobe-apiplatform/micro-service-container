@@ -18,9 +18,11 @@
 
 package com.adobe.api.platform.msc.test;
 
+import com.adobe.api.platform.msc.test.support.TestBean;
 import org.junit.Test;
 
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -37,9 +39,23 @@ public class ContainerIntegrationTest extends BaseTest {
 
         Map response = getRestClient()
                 .path("test")
+                .queryParam("name", "hello")
                 .get(Map.class);
 
         assertTrue((Boolean) response.get("valid"));
+        assertEquals("hello", response.get("name"));
+
+        String result = getRestClient()
+                .path("test")
+                .post(String.class, new TestBean("hello"));
+        assertEquals("hello", result);
+
+
+        List<String> list = getRestClient()
+                .path("test").path("all")
+                .getList(String.class);
+        assertEquals(2, list.size());
+        assertEquals("two", list.get(1));
     }
 
     @Test

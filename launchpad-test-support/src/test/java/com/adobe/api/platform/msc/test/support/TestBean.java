@@ -18,50 +18,26 @@
 
 package com.adobe.api.platform.msc.test.support;
 
-import com.adobe.api.platform.msc.support.JaxRsComponent;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * @author Cristian Constantin
- * @since 11/20/14
+ * @since 11/24/14
  */
-@Path("/test")
-@JaxRsComponent
-@Produces(MediaType.APPLICATION_JSON)
-public class Resource {
+public class TestBean {
 
-    @GET
-    public Map<String, Object> get(@QueryParam("name") String name) {
+    private String name;
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("valid", true);
-        map.put("name", name);
-        return map;
+    public TestBean() {
     }
 
-    @GET
-    @Path("all")
-    public List<String> get() {
-
-        return Arrays.asList("one", "two");
+    public TestBean(String name) {
+        this.name = name;
     }
 
-    @GET
-    @Path("/error")
-    public String endpointError() {
-
-        throw new RuntimeException();
+    public String getName() {
+        return name;
     }
 
-    @POST
-    public String post(TestBean testBean) {
-
-        return testBean.getName();
+    public void setName(String name) {
+        this.name = name;
     }
 }
