@@ -50,12 +50,12 @@
         <dependency>
             <groupId>com.adobe.api.platform.msc</groupId>
             <artifactId>launchpad</artifactId>
-            <version>${project.version}</version>
+            <version>1.0.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.adobe.api.platform.msc</groupId>
             <artifactId>launchpad-test-support</artifactId>
-            <version>${project.version}</version>
+            <version>1.0.3-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
