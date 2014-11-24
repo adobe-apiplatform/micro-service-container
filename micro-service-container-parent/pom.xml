@@ -30,7 +30,7 @@
 
     <groupId>com.adobe.api.platform.msc</groupId>
     <artifactId>micro-service-container-parent</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>API Platform Micro Service Container</name>
@@ -71,9 +71,5 @@
             </plugin>
         </plugins>
     </build>
-
-  <scm>
-    <tag>micro-service-build-1.0.1</tag>
-  </scm>
 </project>
 
