@@ -46,7 +46,7 @@ Use `java -jar target/sample-micro-service-1.0-SNAPSHOT.jar` to run the service.
 
 The container recognizes JAX-RS resources and exposes them under the `/api` context.
 
-```javascript
+```
 import com.adobe.api.platform.msc.support.JaxRsComponent;
 
 import javax.ws.rs.*;
@@ -93,7 +93,7 @@ Writing integration tests is very easy. The MSC container will be started on por
 
 You just need to extend a MSC container class, `com.adobe.api.platform.msc.test.BaseTest`.
 
-```javascript
+```
 import com.adobe.api.platform.msc.test.BaseTest;
 import org.junit.Test;
 
