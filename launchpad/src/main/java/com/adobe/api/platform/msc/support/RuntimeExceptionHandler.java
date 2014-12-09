@@ -16,9 +16,7 @@
  * from Adobe Systems Incorporated.
  ******************************************************************************/
 
-package com.adobe.api.platform.msc;
-
-import com.adobe.api.platform.msc.support.AbstractExceptionHandler;
+package com.adobe.api.platform.msc.support;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
@@ -37,8 +35,7 @@ public class RuntimeExceptionHandler extends AbstractExceptionHandler implements
 
         if (exception instanceof WebApplicationException) {
             return ((WebApplicationException) exception).getResponse();
-        }
-        else {
+        } else {
 
             logger.error("Unexpected error", exception);
 

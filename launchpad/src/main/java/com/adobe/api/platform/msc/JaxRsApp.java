@@ -18,6 +18,7 @@
 
 package com.adobe.api.platform.msc;
 
+import com.adobe.api.platform.msc.support.RuntimeExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
