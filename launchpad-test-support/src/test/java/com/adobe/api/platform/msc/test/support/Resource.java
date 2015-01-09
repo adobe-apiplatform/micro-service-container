@@ -21,6 +21,7 @@ package com.adobe.api.platform.msc.test.support;
 import com.adobe.api.platform.msc.support.JaxRsComponent;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Link;
 import javax.ws.rs.core.MediaType;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -59,9 +60,30 @@ public class Resource {
         throw new RuntimeException();
     }
 
+    @GET
+    @Path("/hateoas")
+    public TestBean hateoas() {
+
+        TestBean bean = new TestBean();
+
+        bean.setLinks(Arrays.asList(Link.fromResource(this.getClass())
+                .rel("test")
+                .title("Test")
+                .build()));
+
+        return bean;
+    }
+
     @POST
     public String post(TestBean testBean) {
 
         return testBean.getName();
+    }
+
+    @PUT
+    @Consumes(MediaType.TEXT_PLAIN)
+    public TestBean post(String name) {
+
+        return new TestBean(name);
     }
 }

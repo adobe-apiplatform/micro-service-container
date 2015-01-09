@@ -18,13 +18,23 @@
 
 package com.adobe.api.platform.msc.test.support;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.ws.rs.core.Link;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Cristian Constantin
  * @since 11/24/14
  */
-public class TestBean {
+public class TestBean implements Serializable {
 
     private String name;
+
+    @JsonProperty("_links")
+    private List<Link> links = new ArrayList<>();
 
     public TestBean() {
     }
@@ -39,5 +49,13 @@ public class TestBean {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Link> getLinks() {
+        return links;
+    }
+
+    public void setLinks(List<Link> links) {
+        this.links = links;
     }
 }

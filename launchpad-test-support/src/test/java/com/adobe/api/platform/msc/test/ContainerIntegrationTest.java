@@ -21,12 +21,12 @@ package com.adobe.api.platform.msc.test;
 import com.adobe.api.platform.msc.test.support.TestBean;
 import org.junit.Test;
 
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * @author Cristian Constantin
@@ -82,5 +82,40 @@ public class ContainerIntegrationTest extends BaseTest {
         entity = response.readEntity(Map.class);
         assertTrue(entity.containsKey("uid"));
         assertEquals("1234", entity.get("uid"));
+    }
+
+    @Test
+    public void testHateoas() {
+
+        TestBean response = getRestClient()
+                .path("test")
+                .path("hateoas")
+                .get(TestBean.class);
+
+        assertNotNull(response.getLinks());
+        assertEquals(1, response.getLinks().size());
+        assertEquals("test", response.getLinks().get(0).getRel());
+        assertEquals("Test", response.getLinks().get(0).getTitle());
+    }
+
+    @Test
+    public void testPostData() {
+
+        String response = getRestClient()
+                .path("test")
+                .post(String.class, new TestBean("test-name"));
+
+        assertEquals("test-name", response);
+    }
+
+    @Test
+    public void testPutData() {
+
+        TestBean response = getRestClient()
+                .path("test")
+                .contentType(MediaType.TEXT_PLAIN_TYPE)
+                .put(TestBean.class, "test-put");
+
+        assertEquals("test-put", response.getName());
     }
 }

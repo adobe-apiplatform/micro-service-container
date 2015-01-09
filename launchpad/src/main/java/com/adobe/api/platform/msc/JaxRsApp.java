@@ -18,6 +18,7 @@
 
 package com.adobe.api.platform.msc;
 
+import com.adobe.api.platform.msc.client.jackson.JacksonConfig;
 import com.adobe.api.platform.msc.support.RuntimeExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -45,6 +46,7 @@ public class JaxRsApp extends Application {
     public Set<Class<?>> getClasses() {
         return new HashSet<>(Arrays.asList(
                 RuntimeExceptionHandler.class,
+                JacksonConfig.class,
                 RequestIdFilter.class
         ));
     }

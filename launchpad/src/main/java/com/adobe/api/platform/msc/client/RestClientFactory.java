@@ -18,7 +18,12 @@
 
 package com.adobe.api.platform.msc.client;
 
-import javax.net.ssl.*;
+import com.adobe.api.platform.msc.client.jackson.JacksonConfig;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
@@ -62,11 +67,7 @@ public class RestClientFactory {
                     }};
 
             // Ignore differences between given hostname and certificate hostname
-            HostnameVerifier hv = new HostnameVerifier() {
-                public boolean verify(String hostname, SSLSession session) {
-                    return true;
-                }
-            };
+            HostnameVerifier hv = (hostname, session) -> true;
 
             SSLContext ctx = SSLContext.getInstance("SSL");
             ctx.init(null, trustAllCerts, null);
@@ -75,6 +76,7 @@ public class RestClientFactory {
             return ClientBuilder.newBuilder()
                     .sslContext(ctx)
                     .hostnameVerifier(hv)
+                    .register(JacksonConfig.class)
                     .build();
 
         } catch (Exception e) {
