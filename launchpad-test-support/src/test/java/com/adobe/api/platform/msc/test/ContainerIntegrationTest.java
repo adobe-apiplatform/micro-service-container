@@ -118,4 +118,9 @@ public class ContainerIntegrationTest extends BaseTest {
 
         assertEquals("test-put", response.getName());
     }
+
+    @Test
+    public void testNullQueryParameter() {
+        assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), getRestClient().path("test").path("query-param-validation").get(Response.class).getStatus());
+    }
 }

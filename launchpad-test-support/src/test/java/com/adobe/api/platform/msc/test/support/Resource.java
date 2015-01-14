@@ -20,6 +20,7 @@ package com.adobe.api.platform.msc.test.support;
 
 import com.adobe.api.platform.msc.support.JaxRsComponent;
 
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.MediaType;
@@ -83,7 +84,12 @@ public class Resource {
     @PUT
     @Consumes(MediaType.TEXT_PLAIN)
     public TestBean post(String name) {
-
         return new TestBean(name);
+    }
+
+    @GET
+    @Path("/query-param-validation")
+    public void testNullParam(@NotNull @QueryParam("param") String param) {
+
     }
 }
