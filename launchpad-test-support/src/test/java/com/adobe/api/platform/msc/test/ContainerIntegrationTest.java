@@ -85,6 +85,17 @@ public class ContainerIntegrationTest extends BaseTest {
     }
 
     @Test
+    public void testHealthCheck() {
+
+        String response = getRestClient()
+                .path("health-check")
+                .acceptedMediaTypes(MediaType.TEXT_PLAIN_TYPE)
+                .get(String.class);
+
+        assertEquals("MSC is running.", response);
+    }
+
+    @Test
     public void testHateoas() {
 
         TestBean response = getRestClient()
