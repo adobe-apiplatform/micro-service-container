@@ -30,7 +30,7 @@
 
     <groupId>com.adobe.api.platform.msc</groupId>
     <artifactId>micro-service-container-parent</artifactId>
-    <version>1.0.8-SNAPSHOT</version>
+    <version>1.0.8</version>
     <packaging>pom</packaging>
 
     <name>API Platform Micro Service Container Parent</name>
@@ -50,12 +50,12 @@
         <dependency>
             <groupId>com.adobe.api.platform.msc</groupId>
             <artifactId>launchpad</artifactId>
-            <version>1.0.8-SNAPSHOT</version>
+            <version>1.0.8</version>
         </dependency>
         <dependency>
             <groupId>com.adobe.api.platform.msc</groupId>
             <artifactId>launchpad-test-support</artifactId>
-            <version>1.0.8-SNAPSHOT</version>
+            <version>1.0.8</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -71,5 +71,9 @@
             </plugin>
         </plugins>
     </build>
+
+  <scm>
+    <tag>micro-service-build-1.0.8</tag>
+  </scm>
 </project>
 
