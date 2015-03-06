@@ -26,17 +26,15 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
  * Base test class to be extended by all API Platform Integration Tests
- * <p/>
+ * <p>
  * User: ccristia
  * Date: 12/12/13
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {SpringBootApplication.class})
-@WebAppConfiguration
+@SpringApplicationConfiguration(classes = SpringBootApplication.class)
 @IntegrationTest("server.port:50000")
 @Ignore
 public class BaseTest {
