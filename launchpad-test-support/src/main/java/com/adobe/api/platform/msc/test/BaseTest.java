@@ -21,14 +21,12 @@ package com.adobe.api.platform.msc.test;
 import com.adobe.api.platform.msc.SpringBootApplication;
 import com.adobe.api.platform.msc.client.RestClient;
 import com.adobe.api.platform.msc.client.RestClientFactory;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ConfigurableApplicationContext;
-
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
+import org.junit.Ignore;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.IntegrationTest;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
  * Base test class to be extended by all API Platform Integration Tests
@@ -36,29 +34,18 @@ import java.util.concurrent.TimeUnit;
  * User: ccristia
  * Date: 12/12/13
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = {SpringBootApplication.class})
+@WebAppConfiguration
+@IntegrationTest("server.port:50000")
+@Ignore
 public class BaseTest {
-
-    protected static ConfigurableApplicationContext context;
-
-    @BeforeClass
-    public static void initSpringBootContainer() throws Exception {
-        Future<ConfigurableApplicationContext> future = Executors
-                .newSingleThreadExecutor().submit(
-                        () -> SpringApplication
-                                .run(SpringBootApplication.class));
-        context = future.get(60, TimeUnit.SECONDS);
-    }
-
-    @AfterClass
-    public static void stop() {
-        if (context != null) {
-            context.close();
-        }
-    }
 
     protected static final String BASE_URI = "http://localhost:50000/api";
 
     protected static RestClient getRestClient() {
         return RestClientFactory.getInstance(BASE_URI);
     }
+
+
 }
