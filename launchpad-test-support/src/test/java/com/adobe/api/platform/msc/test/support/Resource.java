@@ -55,6 +55,18 @@ public class Resource {
     }
 
     @GET
+    @Path("testDelay")
+    public List<String> getWithDelay(@QueryParam("delay") int delay) {
+        //sleep for the specified period of time
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return Arrays.asList("one", "two");
+    }
+
+    @GET
     @Path("/error")
     public String endpointError() {
 
