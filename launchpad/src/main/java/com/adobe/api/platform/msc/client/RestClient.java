@@ -22,16 +22,14 @@ import com.adobe.api.platform.msc.client.util.ParameterizedListType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.client.ClientRequestFilter;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.client.*;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Future;
 
 /**
  * Wrapper of JAX-RS client which adds logging and generic error handling.
@@ -108,6 +106,10 @@ public class RestClient {
         return method("GET", responseClass, null);
     }
 
+    public <T> Future<T> getAsync(InvocationCallback<T> callback) {
+        return methodAsync("GET", null, callback);
+    }
+
     public <T> T get(GenericType<T> responseType) {
 
         Response response = method("GET", Response.class, null);
@@ -123,7 +125,7 @@ public class RestClient {
      */
     public <T> List<T> getList(final Class<T> responseClass) {
 
-        return get(new GenericType<>(new ParameterizedListType (responseClass)));
+        return get(new GenericType<>(new ParameterizedListType(responseClass)));
     }
 
     /**
@@ -180,11 +182,10 @@ public class RestClient {
                     new Object[]{method, webResource.getUri().toString(), clientResponse.getStatus(),
                             System.currentTimeMillis() - startTime});
         } else {
-            logger.info("Executed \"{} {}://{}{}[?***]\" {} in {} ms.",
+            logger.info("Executed \"{} {}://{}:{}{}[?***]\" {} in {} ms.",
                     new Object[]{method, webResource.getUri().getScheme(), webResource.getUri().getHost(),
-                            webResource.getUri().getPath(),
-                            clientResponse.getStatus(),
-                            System.currentTimeMillis() - startTime});
+                            webResource.getUri().getPort(), webResource.getUri().getPath(),
+                            clientResponse.getStatus(), System.currentTimeMillis() - startTime});
         }
 
         if (responseClass.isAssignableFrom(Response.class)) {
@@ -192,6 +193,24 @@ public class RestClient {
         }
 
         return handleResponse(clientResponse, responseClass);
+    }
+
+    private <T> Future<T> methodAsync(String method, Object requestEntity, InvocationCallback<T> callback) {
+
+        Invocation.Builder builder = webResource.request(acceptedMediaTypes);
+
+        for (Map.Entry<String, Object> entry : headers.entrySet()) {
+            builder.header(entry.getKey(), entry.getValue());
+        }
+
+        Entity entity = null;
+        if (requestEntity instanceof Entity) {
+            entity = (Entity) requestEntity;
+        } else if (requestEntity != null) {
+            entity = Entity.entity(requestEntity, contentType);
+        }
+
+        return builder.async().method(method, entity, callback);
     }
 
     private <T> T handleResponse(Response clientResponse, Class<T> responseClass) {

@@ -21,6 +21,7 @@ package com.adobe.api.platform.msc.test;
 import com.adobe.api.platform.msc.test.support.TestBean;
 import org.junit.Test;
 
+import javax.ws.rs.client.InvocationCallback;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -56,6 +57,54 @@ public class ContainerIntegrationTest extends BaseTest {
                 .getList(String.class);
         assertEquals(2, list.size());
         assertEquals("two", list.get(1));
+    }
+
+    @Test
+    public void testAsyncRequest() {
+
+        //test that second api request is processed before first request
+        boolean[] flags = new boolean[1];
+
+        getRestClient()
+                .path("test").path("testDelay")
+                .queryParam("delay", "3000")
+                .getAsync(new InvocationCallback<List<String>>() {
+                    @Override
+                    public void completed(List<String> list) {
+                        assertEquals(2, list.size());
+                        assertEquals("two", list.get(1));
+                        assertTrue(flags[0]);
+                    }
+
+                    @Override
+                    public void failed(Throwable throwable) {
+                        throw new RuntimeException("This shouldn't happen");
+                    }
+                });
+
+        getRestClient()
+                .path("test").path("testDelay")
+                .queryParam("delay", "1000")
+                .getAsync(new InvocationCallback<List<String>>() {
+                    @Override
+                    public void completed(List<String> list) {
+                        assertEquals(2, list.size());
+                        assertEquals("two", list.get(1));
+                        flags[0] = true;
+                    }
+
+                    @Override
+                    public void failed(Throwable throwable) {
+                        throw new RuntimeException("This shouldn't happen");
+                    }
+                });
+
+        //Need to sleep current thread. Otherwise it will exit and test context will be destroyed.
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
