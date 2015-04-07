@@ -19,6 +19,7 @@
 package com.adobe.api.platform.msc.test;
 
 import com.adobe.api.platform.msc.test.support.TestBean;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.ws.rs.client.InvocationCallback;
@@ -26,6 +27,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import static org.junit.Assert.*;
 
@@ -108,6 +111,57 @@ public class ContainerIntegrationTest extends BaseTest {
     }
 
     @Test
+    public void testPostAsyncRequest() throws ExecutionException, InterruptedException {
+
+        Future<String> result = getRestClient()
+                .path("test")
+                .postAsync(new TestBean("hello"), String.class);
+        assertEquals("hello", result.get());
+
+        Future<String> result1 = getRestClient()
+                .path("test")
+                .postAsync(new TestBean("hello"), String.class);
+        assertEquals("hello", result.get());
+
+        getRestClient()
+                .path("test")
+                .postAsync(new TestBean("hello"));
+//        assertEquals(Response.Status.OK.getStatusCode(), responseFuture.get().getStatusInfo().getStatusCode());
+//        responseFuture.get().close();
+
+        final String[] callbackResult = new String[1];
+
+        result = getRestClient()
+                .path("test")
+                .postAsync(new TestBean("hello"), new InvocationCallback<String>() {
+                    @Override
+                    public void completed(String s) {
+                        callbackResult[0] = s;
+                    }
+
+                    @Override
+                    public void failed(Throwable throwable) {
+                        throw new RuntimeException(throwable);
+                    }
+                });
+
+        assertEquals("hello", result.get());
+        assertEquals("hello", callbackResult[0]);
+    }
+
+
+    @Test
+    public void testHealthCheck() {
+
+        String response = getRestClient()
+                .path("health-check")
+                .acceptedMediaTypes(MediaType.TEXT_PLAIN_TYPE)
+                .get(String.class);
+
+        assertEquals("MSC is running.", response);
+    }
+
+    @Test
     public void testErrorHandling() {
 
         Response response = getRestClient()
@@ -131,17 +185,6 @@ public class ContainerIntegrationTest extends BaseTest {
         entity = response.readEntity(Map.class);
         assertTrue(entity.containsKey("uid"));
         assertEquals("1234", entity.get("uid"));
-    }
-
-    @Test
-    public void testHealthCheck() {
-
-        String response = getRestClient()
-                .path("health-check")
-                .acceptedMediaTypes(MediaType.TEXT_PLAIN_TYPE)
-                .get(String.class);
-
-        assertEquals("MSC is running.", response);
     }
 
     @Test

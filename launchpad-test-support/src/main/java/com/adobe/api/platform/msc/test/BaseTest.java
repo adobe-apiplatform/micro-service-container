@@ -20,6 +20,7 @@ package com.adobe.api.platform.msc.test;
 
 import com.adobe.api.platform.msc.SpringBootApplication;
 import com.adobe.api.platform.msc.client.RestClient;
+import com.adobe.api.platform.msc.client.RestClientFactory;
 import com.adobe.api.platform.msc.client.service.RestClientService;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
@@ -47,5 +48,6 @@ public class BaseTest {
 
     protected RestClient getRestClient() {
         return restClientService.getRestClient(BASE_URI);
+//        return RestClientFactory.getInstance(BASE_URI);
     }
 }
