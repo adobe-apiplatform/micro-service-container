@@ -20,16 +20,17 @@ package com.adobe.api.platform.msc.test;
 
 import com.adobe.api.platform.msc.SpringBootApplication;
 import com.adobe.api.platform.msc.client.RestClient;
-import com.adobe.api.platform.msc.client.RestClientFactory;
+import com.adobe.api.platform.msc.client.service.RestClientService;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Base test class to be extended by all API Platform Integration Tests
- * <p>
+ * <p/>
  * User: ccristia
  * Date: 12/12/13
  */
@@ -41,9 +42,10 @@ public class BaseTest {
 
     protected static final String BASE_URI = "http://localhost:50000/api";
 
-    protected static RestClient getRestClient() {
-        return RestClientFactory.getInstance(BASE_URI);
+    @Autowired
+    private RestClientService restClientService;
+
+    protected RestClient getRestClient() {
+        return restClientService.getRestClient(BASE_URI);
     }
-
-
 }

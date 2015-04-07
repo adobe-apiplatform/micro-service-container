@@ -37,7 +37,10 @@ import java.security.cert.X509Certificate;
  * User: ccristia
  * Date: 8/20/13
  * Time: 10:52 AM
+ * <p/>
+ * This is deprecated. You should use {@code RestClientService} instead.
  */
+@Deprecated
 public class RestClientFactory {
 
     public static RestClient getInstance(UriBuilder endpoint) {
