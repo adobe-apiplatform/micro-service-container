@@ -118,16 +118,9 @@ public class ContainerIntegrationTest extends BaseTest {
                 .postAsync(new TestBean("hello"), String.class);
         assertEquals("hello", result.get());
 
-        Future<String> result1 = getRestClient()
-                .path("test")
-                .postAsync(new TestBean("hello"), String.class);
-        assertEquals("hello", result.get());
-
         getRestClient()
                 .path("test")
                 .postAsync(new TestBean("hello"));
-//        assertEquals(Response.Status.OK.getStatusCode(), responseFuture.get().getStatusInfo().getStatusCode());
-//        responseFuture.get().close();
 
         final String[] callbackResult = new String[1];
 
