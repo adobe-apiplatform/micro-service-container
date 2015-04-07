@@ -22,6 +22,7 @@ import com.adobe.api.platform.msc.client.util.ParameterizedListType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ws.rs.HttpMethod;
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
@@ -103,16 +104,18 @@ public class RestClient {
      * @see javax.ws.rs.client.Invocation.Builder#get(Class)
      */
     public <T> T get(Class<T> responseClass) {
-        return method("GET", responseClass, null);
+        return method(HttpMethod.GET, responseClass, null);
     }
 
     public <T> Future<T> getAsync(InvocationCallback<T> callback) {
-        return methodAsync("GET", null, callback);
+        logger.debug("Executing \"{} {}\"", new Object[]{HttpMethod.GET, webResource.getUri()});
+
+        return invocationBuilder().async().get(callback);
     }
 
     public <T> T get(GenericType<T> responseType) {
 
-        Response response = method("GET", Response.class, null);
+        Response response = method(HttpMethod.GET, Response.class, null);
 
         return response.readEntity(responseType);
     }
@@ -132,15 +135,33 @@ public class RestClient {
      * @see javax.ws.rs.client.Invocation.Builder#post(javax.ws.rs.client.Entity, Class)
      */
     public <T> T post(Class<T> responseClass, Object requestEntity) {
-        return method("POST", responseClass, requestEntity);
+        return method(HttpMethod.POST, responseClass, requestEntity);
     }
 
 
     public <T> T post(GenericType<T> responseType, Object requestEntity) {
 
-        Response response = method("POST", Response.class, requestEntity);
+        Response response = method(HttpMethod.POST, Response.class, requestEntity);
 
         return response.readEntity(responseType);
+    }
+
+    public Future<Response> postAsync(Object requestEntity) {
+        logger.debug("Executing \"{} {}\"", new Object[]{HttpMethod.POST, webResource.getUri()});
+
+        return invocationBuilder().async().post(wrapRequestEntity(requestEntity));
+    }
+
+    public <T> Future<T> postAsync(Object requestEntity, Class<T> responseType) {
+        logger.debug("Executing \"{} {}\"", new Object[]{HttpMethod.POST, webResource.getUri()});
+
+        return invocationBuilder().async().post(wrapRequestEntity(requestEntity), responseType);
+    }
+
+    public <T> Future<T> postAsync(Object requestEntity, InvocationCallback<T> callback) {
+        logger.debug("Executing \"{} {}\"", new Object[]{HttpMethod.POST, webResource.getUri()});
+
+        return invocationBuilder().async().post(wrapRequestEntity(requestEntity), callback);
     }
 
     /**
@@ -159,6 +180,8 @@ public class RestClient {
     }
 
     private <T> T method(String method, Class<T> responseClass, Object requestEntity) {
+
+        logger.debug("Executing \"{} {}\"", new Object[]{method, webResource.getUri()});
 
         Invocation.Builder builder = webResource.request(acceptedMediaTypes);
 
@@ -195,23 +218,8 @@ public class RestClient {
         return handleResponse(clientResponse, responseClass);
     }
 
-    private <T> Future<T> methodAsync(String method, Object requestEntity, InvocationCallback<T> callback) {
 
-        Invocation.Builder builder = webResource.request(acceptedMediaTypes);
 
-        for (Map.Entry<String, Object> entry : headers.entrySet()) {
-            builder.header(entry.getKey(), entry.getValue());
-        }
-
-        Entity entity = null;
-        if (requestEntity instanceof Entity) {
-            entity = (Entity) requestEntity;
-        } else if (requestEntity != null) {
-            entity = Entity.entity(requestEntity, contentType);
-        }
-
-        return builder.async().method(method, entity, callback);
-    }
 
     private <T> T handleResponse(Response clientResponse, Class<T> responseClass) {
         if (clientResponse.getStatusInfo().getFamily().equals(Response.Status.Family.SUCCESSFUL)) {
@@ -231,4 +239,56 @@ public class RestClient {
         this.contentType = contentType;
         return this;
     }
+
+
+
+    private Invocation.Builder invocationBuilder() {
+        Invocation.Builder builder = webResource.request(acceptedMediaTypes);
+
+        for (Map.Entry<String, Object> entry : headers.entrySet()) {
+            builder.header(entry.getKey(), entry.getValue());
+        }
+        return builder;
+    }
+
+    private Entity wrapRequestEntity(Object requestEntity) {
+        Entity entity = null;
+        if (requestEntity instanceof Entity) {
+            entity = (Entity) requestEntity;
+        } else if (requestEntity != null) {
+            entity = Entity.entity(requestEntity, contentType);
+        }
+        return entity;
+    }
+
+
+        /*
+
+    private <T> T method(String method, Class<T> responseClass, Object requestEntity) {
+
+        logger.debug("Executing \"{} {}\"", new Object[]{method, webResource.getUri()});
+
+        long startTime = System.currentTimeMillis();
+
+        Response clientResponse = invocationBuilder().method(method, wrapRequestEntity(requestEntity), Response.class);
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("Executed \"{} {}\" {} in {} ms.",
+                    new Object[]{method, webResource.getUri().toString(), clientResponse.getStatus(),
+                            System.currentTimeMillis() - startTime});
+        } else {
+            logger.info("Executed \"{} {}://{}:{}{}[?***]\" {} in {} ms.",
+                    new Object[]{method, webResource.getUri().getScheme(), webResource.getUri().getHost(),
+                            webResource.getUri().getPort(), webResource.getUri().getPath(),
+                            clientResponse.getStatus(), System.currentTimeMillis() - startTime});
+        }
+
+        if (responseClass.isAssignableFrom(Response.class)) {
+            return (T) clientResponse;
+        }
+
+        return handleResponse(clientResponse, responseClass);
+    }
+     */
+
 }
