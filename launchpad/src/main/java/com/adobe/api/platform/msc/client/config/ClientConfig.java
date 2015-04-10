@@ -12,6 +12,7 @@ import javax.net.ssl.X509TrustManager;
 import javax.ws.rs.client.Client;
 import java.security.cert.X509Certificate;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * User: maftei
@@ -25,6 +26,9 @@ public class ClientConfig {
      */
     @Value("${http.connection_pool.size:}")
     private Integer connectionPoolSize;
+
+    @Value("${http.connection.ttl:}")
+    private Integer connectionTTL;
 
     /**
      * Thread pool size (for async operations).
@@ -68,6 +72,10 @@ public class ClientConfig {
 
             if (connectionPoolSize != null) {
                 builder.connectionPoolSize(connectionPoolSize);
+            }
+
+            if (connectionTTL != null) {
+                builder.connectionTTL(connectionTTL, TimeUnit.SECONDS);
             }
 
             return builder.build();
