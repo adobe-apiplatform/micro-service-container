@@ -23,7 +23,7 @@
 
     <groupId>com.adobe.api.platform.msc</groupId>
     <artifactId>micro-service-build</artifactId>
-    <version>1.1.3-SNAPSHOT</version>
+    <version>1.1.3</version>
     <packaging>pom</packaging>
 
     <name>API Platform Micro Services Build</name>
@@ -38,7 +38,7 @@
     <scm>
         <connection>scm:git:${git.repo}</connection>
         <developerConnection>scm:git:${git.repo}</developerConnection>
-        <tag>HEAD</tag>
+        <tag>micro-service-build-1.1.3</tag>
     </scm>
 
     <modules>
