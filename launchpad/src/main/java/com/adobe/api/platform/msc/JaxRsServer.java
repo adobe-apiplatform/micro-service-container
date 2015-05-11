@@ -20,6 +20,8 @@ package com.adobe.api.platform.msc;
 
 import io.undertow.Undertow;
 import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -38,8 +40,16 @@ import java.net.URISyntaxException;
 @Component
 public class JaxRsServer {
 
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Value("${server.port:8080}")
     private int port;
+
+    @Value("${server.threads.io:0}")
+    private int noIoThreads;
+
+    @Value("${server.threads.workers:0}")
+    private int noWorkerThreads;
 
     private UndertowJaxrsServer undertowJaxrsServer = null;
 
@@ -49,10 +59,23 @@ public class JaxRsServer {
     @PostConstruct
     public void start() throws URISyntaxException {
 
-        undertowJaxrsServer = new UndertowJaxrsServer().start(Undertow.builder()
-                .addHttpListener(port, "0.0.0.0"));
+        Undertow.Builder builder = Undertow.builder()
+                .addHttpListener(port, "0.0.0.0");
 
+        if (noIoThreads != 0) {
+            logger.debug("Undertow custom IO threads: {}", noIoThreads);
+            builder.setIoThreads(noIoThreads);
+        }
+        if (noWorkerThreads != 0) {
+            logger.debug("Undertow custom worker threads: {}", noWorkerThreads);
+            builder.setWorkerThreads(noWorkerThreads);
+        }
+
+        undertowJaxrsServer = new UndertowJaxrsServer().start(builder);
         undertowJaxrsServer.deploy(application);
+
+        logger.info("Available processors: {}", Runtime.getRuntime().availableProcessors());
+        logger.info("Starting Undertow on port {}.", port);
     }
 
     @PreDestroy
