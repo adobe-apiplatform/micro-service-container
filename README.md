@@ -2,6 +2,12 @@ micro-service-container
 =======================
 A Java micro-services container based on Undertow, RESTEasy and Spring Boot.
 
+### Who's using MSC?
+* [Entitlements services](https://git.corp.adobe.com/adobe-apis/entitlements-services)
+* [GTS](https://git.corp.adobe.com/adobe-apis/gw-tracking-service)
+* [Adobe Pass Media Company mapping service](https://git.corp.adobe.com/adobe-apis/apass-media-company-service)
+* [IMS offline validator](https://git.corp.adobe.com/adobe-apis/ims-validator)
+
 ### Maven setup
 
 Micro-services implementation only need to inherit the `com.adobe.api.platform.msc:micro-service-container-parent` Maven POM and implement JAX-RS resource classes.
