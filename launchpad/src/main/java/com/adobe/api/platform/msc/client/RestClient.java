@@ -219,9 +219,7 @@ public class RestClient {
     }
 
 
-
-
-    private <T> T handleResponse(Response clientResponse, Class<T> responseClass) {
+    protected <T> T handleResponse(Response clientResponse, Class<T> responseClass) {
         if (clientResponse.getStatusInfo().getFamily().equals(Response.Status.Family.SUCCESSFUL)) {
             if (clientResponse.getStatus() == Response.Status.NO_CONTENT.getStatusCode()) {
                 return null;
