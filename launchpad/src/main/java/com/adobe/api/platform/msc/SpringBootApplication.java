@@ -27,7 +27,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * User: ccristia
  * Date: 3/6/14
  */
-@ComponentScan(basePackages = "com.adobe.api.platform")
+@ComponentScan({"${msc.scan.packages:com.adobe.api.platform}", "com.adobe.api.platform.msc"})
 @EnableAutoConfiguration
 @EnableScheduling
 public class SpringBootApplication {
