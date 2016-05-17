@@ -2,12 +2,6 @@ micro-service-container
 =======================
 A Java micro-services container based on Undertow, RESTEasy and Spring Boot.
 
-### Who's using MSC?
-* [Entitlements services](https://git.corp.adobe.com/adobe-apis/entitlements-services)
-* [GTS](https://git.corp.adobe.com/adobe-apis/gw-tracking-service)
-* [Adobe Pass Media Company mapping service](https://git.corp.adobe.com/adobe-apis/apass-media-company-service)
-* [IMS offline validator](https://git.corp.adobe.com/adobe-apis/ims-validator)
-
 ### Maven setup
 
 Micro-services implementation only need to inherit the `com.adobe.api.platform.msc:micro-service-container-parent` Maven POM and implement JAX-RS resource classes.
@@ -20,7 +14,7 @@ Micro-services implementation only need to inherit the `com.adobe.api.platform.m
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.adobe.api.platform.msc</groupId>
+        <groupId>com.adobe.api.platform</groupId>
         <artifactId>micro-service-container-parent</artifactId>
         <version>1.0.3</version>
         <relativePath/>
@@ -33,12 +27,6 @@ Micro-services implementation only need to inherit the `com.adobe.api.platform.m
 
     <name>API Platform Sample micro service</name>
 
-    <repositories>
-        <repository>
-            <id>api-platform-releases</id>
-            <url>http://api-ci-stg.corp.adobe.com/nexus/content/repositories/releases/</url>
-        </repository>
-    </repositories>
     ...
 </project>
 ```

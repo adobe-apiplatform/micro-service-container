@@ -22,7 +22,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.adobe.api.platform.msc</groupId>
+        <groupId>com.adobe.api.platform</groupId>
         <artifactId>micro-service-build</artifactId>
         <version>1.1.6-SNAPSHOT</version>
         <relativePath>..</relativePath>
@@ -36,7 +36,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>com.adobe.api.platform.msc</groupId>
+            <groupId>com.adobe.api.platform</groupId>
             <artifactId>launchpad</artifactId>
             <version>${project.version}</version>
         </dependency>
