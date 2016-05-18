@@ -43,6 +43,34 @@
         <module>launchpad-test-support</module>
     </modules>
 
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Andra Lungu</name>
+            <email>lungu@adobe.com</email>
+            <organization>Adobe Systems Incorporated</organization>
+            <organizationUrl>http://www.adobe.com</organizationUrl>
+        </developer>
+        <developer>
+            <name>Cristian Constantin</name>
+            <email>ccristia@adobe.com</email>
+            <organization>Adobe Systems Incorporated</organization>
+            <organizationUrl>http://www.adobe.com</organizationUrl>
+        </developer>
+        <developer>
+            <name>Dragos Dascalita-Haut</name>
+            <email>ddascal@adobe.com</email>
+            <organization>Adobe Systems Incorporated</organization>
+            <organizationUrl>http://www.adobe.com</organizationUrl>
+        </developer>
+    </developers>
+
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
