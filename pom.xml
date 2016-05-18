@@ -28,7 +28,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.boot.version>1.2.1.RELEASE</spring.boot.version>
         <maven.javadoc.skip>true</maven.javadoc.skip>
-        <git.repo>git@git.corp.adobe.com:ccristia/micro-service-container.git</git.repo>
+        <git.repo>git@github.com:adobe-apiplatform/micro-service-container.git</git.repo>
     </properties>
 
     <scm>
