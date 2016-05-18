@@ -1,0 +1,9 @@
+machine:
+  timezone: UTC
+  java:
+    version: oraclejdk8
+
+## Customize dependencies
+dependencies:
+  override:
+    - mvn clean install
