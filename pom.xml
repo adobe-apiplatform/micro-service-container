@@ -23,16 +23,20 @@
     <packaging>pom</packaging>
 
     <name>API Platform Micro Services Build</name>
+    <description>A simple base project that could be extended when building microservices.</description>
+    <url>https://github.com/adobe-apiplatform/micro-service-container</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.boot.version>1.2.1.RELEASE</spring.boot.version>
+        <git.repo.url>https://github.com/adobe-apiplatform/micro-service-container</git.repo.url>
         <git.repo>git@github.com:adobe-apiplatform/micro-service-container.git</git.repo>
     </properties>
 
     <scm>
         <connection>scm:git:${git.repo}</connection>
         <developerConnection>scm:git:${git.repo}</developerConnection>
+        <url>${git.repo.url}</url>
         <tag>HEAD</tag>
     </scm>
 
