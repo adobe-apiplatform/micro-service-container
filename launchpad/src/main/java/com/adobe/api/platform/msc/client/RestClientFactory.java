@@ -29,11 +29,11 @@ import java.security.cert.X509Certificate;
 /**
  * Factory class that initializes JAX-RS Client objects.
  * Adds Jackson JSON support and takes care of the SSL configuration.
- * <p/>
+ *
  * User: ccristia
  * Date: 8/20/13
  * Time: 10:52 AM
- * <p/>
+ *
  * This is deprecated. You should use {@code RestClientService} instead.
  */
 @Deprecated

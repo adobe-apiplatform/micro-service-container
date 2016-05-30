@@ -27,7 +27,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Base test class to be extended by all API Platform Integration Tests
- * <p/>
+ *
  * User: ccristia
  * Date: 12/12/13
  */

@@ -25,7 +25,7 @@ import java.io.IOException;
 
 /**
  * Custom Jackson deserializer for JAX-RS {@link javax.ws.rs.core.Link} objects.
- * <p/>
+ *
  * User: ccristia
  * Date: 01/17/14
  */

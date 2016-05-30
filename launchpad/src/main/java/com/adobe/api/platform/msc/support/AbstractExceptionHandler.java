@@ -27,7 +27,7 @@ import java.util.Map;
 
 /**
  * Abstract base class that provides basic exception handling to subclasses.
- * <p/>
+ *
  * User: ccristia
  * Date: 5/30/13
  */

@@ -21,7 +21,7 @@ import javax.ws.rs.ext.ExceptionMapper;
 /**
  * Intercepts uncaught application errors, logs them and provides some
  * brief information to the client.
- * <p/>
+ *
  * User: ccristia
  * Date: 5/30/13
  */

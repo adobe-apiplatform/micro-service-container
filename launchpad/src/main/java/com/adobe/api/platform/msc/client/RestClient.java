@@ -30,9 +30,9 @@ import java.util.concurrent.Future;
 
 /**
  * Wrapper of JAX-RS client which adds logging and generic error handling.
- * <p/>
+ *
  * This class is not thread safe and it is not meant to be reused across requests.
- * <p/>
+ *
  * User: ccristia
  * Date: 7/5/13
  */
