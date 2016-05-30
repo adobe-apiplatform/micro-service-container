@@ -52,6 +52,7 @@ public class ClientConfig {
 
     /**
      * Used for creating http connections to 3rd party API. It's a heavy-weight object and it's useful to reuse it.
+     * @return A JaxRS Client instance
      */
     @Bean
     public Client getJaxrsClient() {

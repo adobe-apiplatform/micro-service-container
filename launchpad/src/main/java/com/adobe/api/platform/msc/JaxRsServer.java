@@ -29,7 +29,7 @@ import java.net.URISyntaxException;
 
 /**
  * JAX-RS server implementation based on Undertow and RESTEasy.
- * <p/>
+ *
  * User: ccristia
  * Date: 2/13/14
  */

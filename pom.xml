@@ -19,21 +19,24 @@
 
     <groupId>com.adobe.api.platform</groupId>
     <artifactId>micro-service-build</artifactId>
-    <version>1.1.10-SNAPSHOT</version>
+    <version>1.1.12-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>API Platform Micro Services Build</name>
+    <description>A simple base project that could be extended when building microservices.</description>
+    <url>https://github.com/adobe-apiplatform/micro-service-container</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.boot.version>1.2.1.RELEASE</spring.boot.version>
-        <maven.javadoc.skip>true</maven.javadoc.skip>
+        <git.repo.url>https://github.com/adobe-apiplatform/micro-service-container</git.repo.url>
         <git.repo>git@github.com:adobe-apiplatform/micro-service-container.git</git.repo>
     </properties>
 
     <scm>
         <connection>scm:git:${git.repo}</connection>
         <developerConnection>scm:git:${git.repo}</developerConnection>
+        <url>${git.repo.url}</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -112,6 +115,21 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.3</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
