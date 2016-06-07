@@ -19,7 +19,7 @@
 
     <groupId>com.adobe.api.platform</groupId>
     <artifactId>micro-service-build</artifactId>
-    <version>1.1.17-SNAPSHOT</version>
+    <version>1.1.17</version>
     <packaging>pom</packaging>
 
     <name>API Platform Micro Services Build</name>
@@ -37,7 +37,7 @@
         <connection>scm:git:${git.repo}</connection>
         <developerConnection>scm:git:${git.repo}</developerConnection>
         <url>${git.repo.url}</url>
-        <tag>HEAD</tag>
+        <tag>micro-service-build-1.1.17</tag>
     </scm>
 
     <modules>
