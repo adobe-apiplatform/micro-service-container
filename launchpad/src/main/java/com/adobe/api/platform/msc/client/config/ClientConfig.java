@@ -45,6 +45,13 @@ public class ClientConfig {
     private Integer connectionTTL;
 
     /**
+     * Socket timeout parameter for requests
+     */
+
+    @Value("${http.socket_timeout:}")
+    private Integer socketTimeout;
+
+    /**
      * Thread pool size (for async operations).
      */
     @Value("${worker.thread_pool.size:}")
@@ -52,6 +59,7 @@ public class ClientConfig {
 
     /**
      * Used for creating http connections to 3rd party API. It's a heavy-weight object and it's useful to reuse it.
+     *
      * @return A JaxRS Client instance
      */
     @Bean
@@ -91,6 +99,10 @@ public class ClientConfig {
 
             if (connectionTTL != null) {
                 builder.connectionTTL(connectionTTL, TimeUnit.SECONDS);
+            }
+
+            if (socketTimeout != null) {
+                builder.socketTimeout(socketTimeout, TimeUnit.SECONDS);
             }
 
             return builder.build();
