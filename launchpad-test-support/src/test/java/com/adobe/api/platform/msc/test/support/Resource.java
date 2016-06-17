@@ -15,6 +15,8 @@
 package com.adobe.api.platform.msc.test.support;
 
 import com.adobe.api.platform.msc.support.JaxRsComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
@@ -34,8 +36,12 @@ import java.util.Map;
 @Produces(MediaType.APPLICATION_JSON)
 public class Resource {
 
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @GET
     public Map<String, Object> get(@QueryParam("name") String name) {
+
+        logger.debug("Received request.");
 
         Map<String, Object> map = new HashMap<>();
         map.put("valid", true);

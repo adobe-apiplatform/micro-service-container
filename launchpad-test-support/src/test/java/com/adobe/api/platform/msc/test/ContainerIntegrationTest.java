@@ -39,6 +39,7 @@ public class ContainerIntegrationTest extends BaseTest {
 
         Map response = getRestClient()
                 .path("test")
+                .header("X-Request-Id", "123456")
                 .queryParam("name", "hello")
                 .get(Map.class);
 

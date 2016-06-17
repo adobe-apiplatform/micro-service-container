@@ -29,7 +29,7 @@
 
     <name>API Platform Micro Service Launchpad</name>
     <properties>
-        <resteasy.version>3.0.10.Final</resteasy.version>
+        <resteasy.version>3.0.17.Final</resteasy.version>
     </properties>
 
     <dependencies>
