@@ -58,7 +58,6 @@ public class RestClient {
      */
     public RestClient path(String path) {
         webResource = webResource.path(path);
-
         return this;
     }
 
@@ -254,7 +253,6 @@ public class RestClient {
         }
         return entity;
     }
-
 
         /*
 

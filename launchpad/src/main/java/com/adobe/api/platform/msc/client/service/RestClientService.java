@@ -39,4 +39,6 @@ public class RestClientService {
     public RestClient getRestClient(String endpoint) {
         return new RestClient(restClient.target(endpoint)).acceptedMediaTypes(MediaType.APPLICATION_JSON_TYPE);
     }
+
+
 }

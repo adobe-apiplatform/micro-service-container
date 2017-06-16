@@ -44,12 +44,17 @@ public class ClientConfig {
     @Value("${http.connection.ttl:}")
     private Integer connectionTTL;
 
+    @Value("{http.connection.timeout:}")
+    private Integer connectionTimeout;
+
     /**
      * Socket timeout parameter for requests
      */
-
     @Value("${http.socket_timeout:}")
     private Integer socketTimeout;
+
+    @Value("${http.connection.time.unit:SECONDS}")
+    private String timeUnit;
 
     /**
      * Thread pool size (for async operations).
@@ -98,12 +103,17 @@ public class ClientConfig {
             }
 
             if (connectionTTL != null) {
-                builder.connectionTTL(connectionTTL, TimeUnit.SECONDS);
+                builder.connectionTTL(connectionTTL, TimeUnit.valueOf(timeUnit));
+            }
+
+            if(connectionTimeout != null) {
+                builder.establishConnectionTimeout(connectionTimeout, TimeUnit.valueOf(timeUnit));
             }
 
             if (socketTimeout != null) {
-                builder.socketTimeout(socketTimeout, TimeUnit.SECONDS);
+                builder.socketTimeout(socketTimeout, TimeUnit.valueOf(timeUnit));
             }
+
 
             return builder.build();
 
