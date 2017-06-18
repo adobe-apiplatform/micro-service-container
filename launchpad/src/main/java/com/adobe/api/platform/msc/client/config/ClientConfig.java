@@ -44,7 +44,7 @@ public class ClientConfig {
     @Value("${http.connection.ttl:}")
     private Integer connectionTTL;
 
-    @Value("{http.connection.timeout:}")
+    @Value("${http.connection_timeout:}")
     private Integer connectionTimeout;
 
     /**
@@ -57,7 +57,7 @@ public class ClientConfig {
      * Time unit that you want to use
      * SECONDS, MILLISECONDS, DAYS, MINUTES
      */
-    @Value("${http.connection.time.unit:SECONDS}")
+    @Value("${time_unit:SECONDS}")
     private String timeUnit;
 
     /**
@@ -66,7 +66,7 @@ public class ClientConfig {
     @Value("${worker.thread_pool.size:}")
     private Integer workerThreadPooSize;
 
-    @Value("${worker.thread.checkout.time:}")
+    @Value("${worker.thread_checkout_time:}")
     private Integer checkoutTime;
 
 
