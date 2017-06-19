@@ -1,0 +1,1 @@
++atrifan: added support for rest client configurations (connection timeout, read timeout, worker_fetch timeout)
