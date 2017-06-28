@@ -44,18 +44,31 @@ public class ClientConfig {
     @Value("${http.connection.ttl:}")
     private Integer connectionTTL;
 
+    @Value("${http.connection_timeout:}")
+    private Integer connectionTimeout;
+
     /**
      * Socket timeout parameter for requests
      */
-
     @Value("${http.socket_timeout:}")
     private Integer socketTimeout;
+
+    /**
+     * Time unit that you want to use
+     * SECONDS, MILLISECONDS, DAYS, MINUTES
+     */
+    @Value("${time_unit:SECONDS}")
+    private String timeUnit;
 
     /**
      * Thread pool size (for async operations).
      */
     @Value("${worker.thread_pool.size:}")
     private Integer workerThreadPooSize;
+
+    @Value("${worker.thread_checkout_time:}")
+    private Integer checkoutTime;
+
 
     /**
      * Used for creating http connections to 3rd party API. It's a heavy-weight object and it's useful to reuse it.
@@ -98,11 +111,19 @@ public class ClientConfig {
             }
 
             if (connectionTTL != null) {
-                builder.connectionTTL(connectionTTL, TimeUnit.SECONDS);
+                builder.connectionTTL(connectionTTL, TimeUnit.valueOf(timeUnit));
+            }
+
+            if(connectionTimeout != null) {
+                builder.establishConnectionTimeout(connectionTimeout, TimeUnit.valueOf(timeUnit));
             }
 
             if (socketTimeout != null) {
-                builder.socketTimeout(socketTimeout, TimeUnit.SECONDS);
+                builder.socketTimeout(socketTimeout, TimeUnit.valueOf(timeUnit));
+            }
+
+            if (checkoutTime != null) {
+                builder.connectionCheckoutTimeout(checkoutTime, TimeUnit.valueOf(timeUnit));
             }
 
             return builder.build();
