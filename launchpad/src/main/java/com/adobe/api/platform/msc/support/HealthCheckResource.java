@@ -32,11 +32,6 @@ import javax.ws.rs.core.MediaType;
 @JaxRsComponent
 public class HealthCheckResource {
 
-    @PostConstruct
-    public void debug() {
-        System.out.println(HEALTH_CHECK_MESSAGE);
-    }
-
     @Value("${health-check.message:}")
     public String HEALTH_CHECK_MESSAGE;
 
