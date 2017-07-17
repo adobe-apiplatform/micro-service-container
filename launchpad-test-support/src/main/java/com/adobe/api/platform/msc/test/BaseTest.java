@@ -16,24 +16,23 @@ package com.adobe.api.platform.msc.test;
 
 import com.adobe.api.platform.msc.SpringBootApplication;
 import com.adobe.api.platform.msc.client.RestClient;
-import com.adobe.api.platform.msc.client.RestClientFactory;
 import com.adobe.api.platform.msc.client.service.RestClientService;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Base test class to be extended by all API Platform Integration Tests
- *
+ * <p>
  * User: ccristia
  * Date: 12/12/13
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SpringBootApplication.class)
-@IntegrationTest("server.port:50000")
+@ContextConfiguration(classes = SpringBootApplication.class)
+@TestPropertySource("classpath:application-test.properties")
 @Ignore
 public class BaseTest {
 

@@ -16,6 +16,7 @@ package com.adobe.api.platform.msc.support;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import javax.annotation.PostConstruct;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -30,6 +31,11 @@ import javax.ws.rs.core.MediaType;
 @Path("/health-check")
 @JaxRsComponent
 public class HealthCheckResource {
+
+    @PostConstruct
+    public void debug() {
+        System.out.println(HEALTH_CHECK_MESSAGE);
+    }
 
     @Value("${health-check.message:}")
     public String HEALTH_CHECK_MESSAGE;

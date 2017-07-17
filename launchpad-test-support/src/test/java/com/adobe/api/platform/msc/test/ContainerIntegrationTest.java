@@ -15,8 +15,8 @@
 package com.adobe.api.platform.msc.test;
 
 import com.adobe.api.platform.msc.test.support.TestBean;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.ws.rs.client.InvocationCallback;
 import javax.ws.rs.core.MediaType;
@@ -26,12 +26,15 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Cristian Constantin
  * @since 11/20/14
  */
+@SpringBootTest(properties = {"server.port=50000"})
 public class ContainerIntegrationTest extends BaseTest {
 
     @Test
