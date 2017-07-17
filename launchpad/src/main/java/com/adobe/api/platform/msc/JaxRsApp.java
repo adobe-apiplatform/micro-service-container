@@ -16,6 +16,7 @@ package com.adobe.api.platform.msc;
 
 import com.adobe.api.platform.msc.client.jackson.JacksonConfig;
 import com.adobe.api.platform.msc.support.RuntimeExceptionHandler;
+import com.adobe.api.platform.msc.support.SwaggerApiListingResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -43,7 +44,8 @@ public class JaxRsApp extends Application {
         return new HashSet<>(Arrays.asList(
                 RuntimeExceptionHandler.class,
                 JacksonConfig.class,
-                RequestIdFilter.class
+                RequestIdFilter.class,
+                SwaggerApiListingResource.class
         ));
     }
 
