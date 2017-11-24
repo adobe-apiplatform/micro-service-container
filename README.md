@@ -30,6 +30,33 @@ Micro-services implementation only need to inherit the `com.adobe.api.platform.m
     ...
 </project>
 ```
+
+##### Configure version endpoint
+To display information about your application version, add **buildnumber-maven-plugin** plugin to the build:
+
+``` 
+	<build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+```
+
+ Also, add the following properties to your `application.properties` file:
+ ```
+ application.name=@project.artifactId@
+ build.version=@project.version@
+ build.timestamp=@timestamp@
+ build.number=@buildNumber@
+ ```
+where 
+* **timestamp** and **buildNumber** are buildnumber-maven-plugin properties
+* **project.artifactId** and **project.version**  are predefined maven properties
+
+
 ### Running the service
 
 The Maven build will then generate a single executable JAR file which will contain the micro-service code and the required libraries.

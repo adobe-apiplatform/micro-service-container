@@ -34,9 +34,32 @@ public class HealthCheckResource {
     @Value("${health-check.message:}")
     public String HEALTH_CHECK_MESSAGE;
 
+    @Value("${application.name:unknown}")
+    private String applicationName;
+
+    @Value("${build.version:unknown}")
+    private String buildVersion;
+
+    @Value("${build.timestamp:unknown}")
+    private String buildTimestamp;
+
+    @Value("${build.number:unknown}")
+    private String buildNumber;
+
     @GET
     public String getHealthCheckMessage() {
         return HEALTH_CHECK_MESSAGE;
     }
 
+    @GET
+    @Path("/version")
+    public String getAppVersion() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[Application info]");
+        sb.append("\nApplication name : " + applicationName);
+        sb.append("\nBuild version    : " + buildVersion);
+        sb.append("\nBuild timestamp  : " + buildTimestamp);
+        sb.append("\nBuild number     : " + buildNumber);
+        return sb.toString();
+    }
 }
