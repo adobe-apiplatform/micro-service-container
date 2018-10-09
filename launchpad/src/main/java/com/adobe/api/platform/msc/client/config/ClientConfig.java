@@ -68,7 +68,7 @@ public class ClientConfig {
      * Thread pool size (for async operations).
      */
     @Value("${worker.thread_pool.size:}")
-    private Integer workerThreadPooSize;
+    private Integer workerThreadPoolSize;
 
     @Value("${worker.thread_checkout_time:}")
     private Integer checkoutTime;
@@ -138,8 +138,8 @@ public class ClientConfig {
     private ExecutorService setUpAsyncExecutor() {
         int poolSize;
 
-        if (workerThreadPooSize != null) {
-            poolSize = workerThreadPooSize;
+        if (workerThreadPoolSize != null) {
+            poolSize = workerThreadPoolSize;
         } else {
             poolSize = WORKER_THREAD_POOL_SIZE;
         }
