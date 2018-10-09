@@ -25,7 +25,9 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.ws.rs.client.Client;
 import java.security.cert.X509Certificate;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -34,6 +36,8 @@ import java.util.concurrent.TimeUnit;
  */
 @Configuration
 public class ClientConfig {
+    private static final int WORKER_THREAD_POOL_SIZE = 10;
+    private static final int WORKER_THREAD_POOL_QUEUE_SIZE = 100000;
 
     /**
      * HTTP persistent connection pool size (used by resteasy web client).
@@ -64,11 +68,13 @@ public class ClientConfig {
      * Thread pool size (for async operations).
      */
     @Value("${worker.thread_pool.size:}")
-    private Integer workerThreadPooSize;
+    private Integer workerThreadPoolSize;
 
     @Value("${worker.thread_checkout_time:}")
     private Integer checkoutTime;
 
+    @Value("${worker.thread_pool_queue.size:}")
+    private Integer workerThreadPoolQueueSize;
 
     /**
      * Used for creating http connections to 3rd party API. It's a heavy-weight object and it's useful to reuse it.
@@ -100,11 +106,7 @@ public class ClientConfig {
                     .register(JacksonConfig.class)
                     .hostnameVerification(ResteasyClientBuilder.HostnameVerificationPolicy.ANY);
 
-            //if not set, builder sets a pool with 10 threads
-            if (workerThreadPooSize != null) {
-                // if necessary expose the thread pool as bean (reuse the same thread pool for other scenarios).
-                builder.asyncExecutor(Executors.newFixedThreadPool(workerThreadPooSize));
-            }
+            builder.asyncExecutor(setUpAsyncExecutor());
 
             if (connectionPoolSize != null) {
                 builder.connectionPoolSize(connectionPoolSize);
@@ -114,7 +116,7 @@ public class ClientConfig {
                 builder.connectionTTL(connectionTTL, TimeUnit.valueOf(timeUnit));
             }
 
-            if(connectionTimeout != null) {
+            if (connectionTimeout != null) {
                 builder.establishConnectionTimeout(connectionTimeout, TimeUnit.valueOf(timeUnit));
             }
 
@@ -131,5 +133,26 @@ public class ClientConfig {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private ExecutorService setUpAsyncExecutor() {
+        int poolSize;
+
+        if (workerThreadPoolSize != null) {
+            poolSize = workerThreadPoolSize;
+        } else {
+            poolSize = WORKER_THREAD_POOL_SIZE;
+        }
+
+        int poolQueueSize;
+
+        if (workerThreadPoolQueueSize != null) {
+            poolQueueSize = workerThreadPoolQueueSize;
+        } else {
+            poolQueueSize = WORKER_THREAD_POOL_QUEUE_SIZE;
+        }
+
+        return new ThreadPoolExecutor(poolSize, poolSize, 0L, TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<>(poolQueueSize));
     }
 }
