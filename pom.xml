@@ -30,7 +30,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.boot.version>1.3.5.RELEASE</spring.boot.version>
         <git.repo.url>https://github.com/adobe-apiplatform/micro-service-container</git.repo.url>
-        <git.repo>https://apiplatformcoredev@github.com/adobe-apiplatform/micro-service-container.git</git.repo>
+        <git.repo>https://github.com/adobe-apiplatform/micro-service-container.git</git.repo>
+        <project.scm.id>github</project.scm.id>
     </properties>
 
     <scm>
