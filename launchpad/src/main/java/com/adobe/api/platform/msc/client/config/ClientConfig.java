@@ -105,8 +105,9 @@ public class ClientConfig {
                     .sslContext(ctx)
                     .register(JacksonConfig.class)
                     .hostnameVerification(ResteasyClientBuilder.HostnameVerificationPolicy.ANY);
+            ExecutorService executorService = setUpAsyncExecutor();
 
-            builder.asyncExecutor(setUpAsyncExecutor());
+            builder.asyncExecutor(executorService);
 
             if (connectionPoolSize != null) {
                 builder.connectionPoolSize(connectionPoolSize);
