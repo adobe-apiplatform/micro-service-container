@@ -107,7 +107,7 @@ public class ClientConfig {
                     .hostnameVerification(ResteasyClientBuilder.HostnameVerificationPolicy.ANY);
             ExecutorService executorService = setUpAsyncExecutor();
 
-            builder.asyncExecutor(executorService);
+            builder.executorService(executorService);
 
             if (connectionPoolSize != null) {
                 builder.connectionPoolSize(connectionPoolSize);
