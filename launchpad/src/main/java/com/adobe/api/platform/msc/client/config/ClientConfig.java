@@ -39,6 +39,9 @@ public class ClientConfig {
     private static final int WORKER_THREAD_POOL_SIZE = 10;
     private static final int WORKER_THREAD_POOL_QUEUE_SIZE = 100000;
 
+    @Value("${http.use.async.engine:false}")
+    private boolean useAsyncEngine;
+
     /**
      * HTTP persistent connection pool size (used by resteasy web client).
      */
@@ -108,6 +111,10 @@ public class ClientConfig {
             ExecutorService executorService = setUpAsyncExecutor();
 
             builder.executorService(executorService);
+
+            if (useAsyncEngine) {
+                builder.useAsyncHttpEngine();
+            }
 
             if (connectionPoolSize != null) {
                 builder.connectionPoolSize(connectionPoolSize);
