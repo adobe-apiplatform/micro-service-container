@@ -125,11 +125,11 @@ public class ClientConfig {
             }
 
             if (connectionTimeout != null) {
-                builder.establishConnectionTimeout(connectionTimeout, TimeUnit.valueOf(timeUnit));
+                builder.connectTimeout(connectionTimeout, TimeUnit.valueOf(timeUnit));
             }
 
             if (socketTimeout != null) {
-                builder.socketTimeout(socketTimeout, TimeUnit.valueOf(timeUnit));
+                builder.readTimeout(socketTimeout, TimeUnit.valueOf(timeUnit));
             }
 
             if (checkoutTime != null) {
