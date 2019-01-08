@@ -39,6 +39,9 @@ public class ClientConfig {
     private static final int WORKER_THREAD_POOL_SIZE = 10;
     private static final int WORKER_THREAD_POOL_QUEUE_SIZE = 100000;
 
+    @Value("${http.use.async.engine:false}")
+    private boolean useAsyncEngine;
+
     /**
      * HTTP persistent connection pool size (used by resteasy web client).
      */
@@ -105,8 +108,13 @@ public class ClientConfig {
                     .sslContext(ctx)
                     .register(JacksonConfig.class)
                     .hostnameVerification(ResteasyClientBuilder.HostnameVerificationPolicy.ANY);
+            ExecutorService executorService = setUpAsyncExecutor();
 
-            builder.asyncExecutor(setUpAsyncExecutor());
+            builder.executorService(executorService);
+
+            if (useAsyncEngine) {
+                builder.useAsyncHttpEngine();
+            }
 
             if (connectionPoolSize != null) {
                 builder.connectionPoolSize(connectionPoolSize);
@@ -117,11 +125,11 @@ public class ClientConfig {
             }
 
             if (connectionTimeout != null) {
-                builder.establishConnectionTimeout(connectionTimeout, TimeUnit.valueOf(timeUnit));
+                builder.connectTimeout(connectionTimeout, TimeUnit.valueOf(timeUnit));
             }
 
             if (socketTimeout != null) {
-                builder.socketTimeout(socketTimeout, TimeUnit.valueOf(timeUnit));
+                builder.readTimeout(socketTimeout, TimeUnit.valueOf(timeUnit));
             }
 
             if (checkoutTime != null) {
