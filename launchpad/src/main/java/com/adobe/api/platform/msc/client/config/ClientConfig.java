@@ -16,6 +16,8 @@ package com.adobe.api.platform.msc.client.config;
 
 import com.adobe.api.platform.msc.client.jackson.JacksonConfig;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,8 +38,11 @@ import java.util.concurrent.TimeUnit;
  */
 @Configuration
 public class ClientConfig {
+
     private static final int WORKER_THREAD_POOL_SIZE = 10;
     private static final int WORKER_THREAD_POOL_QUEUE_SIZE = 100000;
+
+    private final static Logger logger = LoggerFactory.getLogger(ClientConfig.class);
 
     @Value("${http.use.async.engine:false}")
     private boolean useAsyncEngine;
@@ -59,6 +64,9 @@ public class ClientConfig {
      */
     @Value("${http.socket_timeout:}")
     private Integer socketTimeout;
+
+    @Value("${http.max_pooled_per_route:}")
+    private Integer maxPooledPerRoute;
 
     /**
      * Time unit that you want to use
@@ -134,6 +142,21 @@ public class ClientConfig {
 
             if (checkoutTime != null) {
                 builder.connectionCheckoutTimeout(checkoutTime, TimeUnit.valueOf(timeUnit));
+            }
+
+            if (maxPooledPerRoute != null) {
+                builder.maxPooledPerRoute(maxPooledPerRoute);
+            }
+
+            if (logger.isInfoEnabled()) {
+                logger.info("Using rest client properties: " +
+                                "http.use.async.engine: {}, http.connection_pool.size: {}, http.connection.ttl: {}, " +
+                                "http.connection_timeout: {}, http.socket_timeout: {}, http.max_pooled_per_route: {}, " +
+                                "worker.thread_checkout_time: {}, worker.thread_pool_queue.size: {}, worker.thread_pool.size: {}, " +
+                                "time_unit: {}",
+                        new Object[]{useAsyncEngine, connectionPoolSize, connectionTTL,
+                                connectionTimeout, socketTimeout, maxPooledPerRoute,
+                                checkoutTime, workerThreadPoolQueueSize, workerThreadPoolSize, timeUnit});
             }
 
             return builder.build();
